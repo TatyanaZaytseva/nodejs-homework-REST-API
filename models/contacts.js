@@ -41,7 +41,7 @@ const updateContact = async (contactId, name, email, phone) => {
   contact.name = updatedContact.name;
   contact.email = updatedContact.email;
   contact.phone = updatedContact.phone;
-  await writeDB(db);
+  return contact;
 };
 
 module.exports = {

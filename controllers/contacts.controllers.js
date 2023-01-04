@@ -10,7 +10,6 @@ async function getContacts(req, res, next) {
 async function getContact(req, res, next) {
   const { id } = req.params;
   const contact = await db.getContactById(id);
-
   if (!contact) {
     return next(HttpError(404, "Contact not found"));
   }
@@ -40,8 +39,7 @@ async function updateContact(req, res, next) {
   if (!contact) {
     return next(HttpError(404, "No contact"));
   }
-  await db.updateContact(id, name, email, phone);
-  const updatedContact = await db.getContactById(id);
+  const updatedContact = await db.updateContact(id, name, email, phone);
   return res.status(200).json(updatedContact);
 }
 
