@@ -19,8 +19,6 @@ const schema = mongoose.Schema(
   {
     versionKey: false,
     timestamps: true,
-  },
-  {
     collection: "Contacts",
   }
 );

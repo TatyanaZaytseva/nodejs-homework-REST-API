@@ -17,7 +17,7 @@ async function getContact(req, res, next) {
 }
 
 async function createContact(req, res, next) {
-  const { name, email, phone } = req.body;
+  const { name, email, phone, favorite = false } = req.body;
   const newContact = await Contact.create(req.body);
   return res.status(201).json(newContact);
 }
@@ -47,10 +47,24 @@ async function updateContact(req, res, next) {
   return res.status(200).json(updatedContact);
 }
 
+async function updateStatusContact(req, res, next) {
+  const { id } = req.params;
+  const { favorite = false } = req.body;
+  const contact = await Contact.findById(id);
+  if (!contact) {
+    return next(HttpError(404, "No contact"));
+  }
+  const updatedStatusContact = await Contact.findByIdAndUpdate(id, {
+    favorite,
+  });
+  return res.status(200).json(updatedStatusContact);
+}
+
 module.exports = {
   getContacts,
   getContact,
   createContact,
   deleteContact,
   updateContact,
+  updateStatusContact,
 };
