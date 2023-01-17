@@ -44,10 +44,19 @@ const updateContact = async (contactId, name, email, phone) => {
   return contact;
 };
 
+const updateStatusContact = async (contactId, favorite) => {
+  const db = await listContacts();
+  const contact = db.find((contact) => contact.id === contactId);
+  const updatedStatusContact = { favorite };
+  contact.favorite = updatedStatusContact.favorite;
+  return contact;
+};
+
 module.exports = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
   updateContact,
+  updateStatusContact,
 };
