@@ -2,9 +2,10 @@ const { HttpError } = require("../helpers/index.js");
 const { Contact } = require("../models/contact");
 
 async function getContacts(req, res, next) {
-  const contacts = await Contact.find({});
-  console.log("contacts:", contacts);
-  res.json(contacts);
+  const { limit, page } = req.query;
+  const skip = (page - 1) * limit;
+  const contacts = await Contact.find({}).skip(skip).limit(limit);
+  return res.json(contacts);
 }
 
 async function getContact(req, res, next) {
@@ -39,11 +40,15 @@ async function updateContact(req, res, next) {
   if (!contact) {
     return next(HttpError(404, "No contact"));
   }
-  const updatedContact = await Contact.findByIdAndUpdate(id, {
-    name,
-    email,
-    phone,
-  });
+  const updatedContact = await Contact.findByIdAndUpdate(
+    id,
+    {
+      name,
+      email,
+      phone,
+    },
+    { new: true }
+  );
   return res.status(200).json(updatedContact);
 }
 
