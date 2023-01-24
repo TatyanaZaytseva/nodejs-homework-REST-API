@@ -8,9 +8,7 @@ async function createContact(req, res, next) {
   await User.findByIdAndUpdate(user._id, user);
 
   return res.status(201).json({
-    data: {
-      contacts: user.contacts,
-    },
+    contacts: user.contacts,
   });
 }
 
@@ -23,11 +21,8 @@ async function getContacts(req, res, next) {
     favorite: 1,
     id: 1,
   });
-
   return res.status(200).json({
-    data: {
-      contacts: userWithContacts.contacts,
-    },
+    contacts: userWithContacts.contacts,
   });
 }
 
@@ -36,9 +31,7 @@ async function me(req, res, next) {
   const { email, _id: id } = user;
 
   return res.status(200).json({
-    data: {
-      user,
-    },
+    user,
   });
 }
 

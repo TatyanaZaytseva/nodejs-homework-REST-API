@@ -18,12 +18,10 @@ async function register(req, res, next) {
     });
 
     res.status(201).json({
-      data: {
-        user: {
-          email,
-          id: savedUser._id,
-          subscription,
-        },
+      user: {
+        email,
+        id: savedUser._id,
+        subscription,
       },
     });
   } catch (error) {
@@ -55,11 +53,9 @@ async function login(req, res, next) {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
 
   return res.json({
-    data: {
-      token,
-      user: {
-        email,
-      },
+    token,
+    user: {
+      email,
     },
   });
 }
@@ -67,7 +63,7 @@ async function login(req, res, next) {
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: null });
-  res.status(204).send();
+  res.status(204).end();
 };
 
 module.exports = {
