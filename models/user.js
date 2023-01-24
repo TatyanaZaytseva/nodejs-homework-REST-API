@@ -20,7 +20,7 @@ const schema = mongoose.Schema(
     contacts: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "contact",
+        ref: "contacts",
       },
     ],
   },
