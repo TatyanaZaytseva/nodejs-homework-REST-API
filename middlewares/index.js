@@ -23,7 +23,7 @@ async function auth(req, res, next) {
   }
 
   if (!token) {
-    throw HttpError(401, "no token provided");
+    throw HttpError(401, "Not authorized");
   }
 
   try {

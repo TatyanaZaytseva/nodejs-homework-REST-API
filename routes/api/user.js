@@ -20,6 +20,4 @@ userRouter.get(
 );
 userRouter.get("/me", tryCatchWrapper(auth), tryCatchWrapper(me));
 
-module.exports = {
-  userRouter,
-};
+module.exports = userRouter;

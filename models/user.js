@@ -17,6 +17,12 @@ const schema = mongoose.Schema(
       default: "starter",
     },
     token: String,
+    contacts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "contact",
+      },
+    ],
   },
   {
     timestamps: true,
