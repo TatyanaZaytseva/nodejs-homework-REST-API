@@ -15,6 +15,10 @@ const schema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "user",
+    },
   },
   {
     versionKey: false,
@@ -22,7 +26,7 @@ const schema = mongoose.Schema(
     collection: "Contacts",
   }
 );
-const Contact = mongoose.model("Contacts", schema);
+const Contact = mongoose.model("contacts", schema);
 module.exports = {
   Contact,
 };

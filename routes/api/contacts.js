@@ -7,7 +7,7 @@ const {
   createContact,
   updateContact,
   updateStatusContact,
-} = require("../../controllers/contacts.controllers.js");
+} = require("../../controllers/contacts.controller");
 const { validateBody } = require("../../middlewares/index");
 const { addContactSchema } = require("../../schemas/contacts");
 

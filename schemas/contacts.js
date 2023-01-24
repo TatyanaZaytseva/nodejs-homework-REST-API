@@ -7,6 +7,14 @@ const addContactSchema = Joi.object({
   favorite: Joi.boolean(),
 });
 
+const addUserSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().required(),
+  subsscriptrion: Joi.string(),
+  token: Joi.string(),
+});
+
 module.exports = {
   addContactSchema,
+  addUserSchema,
 };
