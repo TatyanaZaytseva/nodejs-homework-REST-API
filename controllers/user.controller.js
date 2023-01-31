@@ -1,7 +1,7 @@
 const { User } = require("../models/user");
 const path = require("path");
 const fs = require("fs/promises");
-// const Jimp = require("jimp");
+const Jimp = require("jimp");
 
 async function createContact(req, res, next) {
   const { user } = req;
@@ -57,21 +57,29 @@ async function uploadAvatar(req, res, next) {
   });
 }
 
+// async function resizeAvatar(image) {
+//   try {
+//     const newImage = await Jimp.read(image);
+//     console.log(newImage);
+//     const newSizeImage = await newImage.resize(250, 250);
+//     const newNameImage = await newSizeImage.write("nikita.jpeg");
+//     return newNameImage;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
 async function uploadNewAvatar(req, res, next) {
   const { filename } = req.file;
-
-  // async function resizeAvatar(image) {
-  //   try {
-  //     const newImage = await Jimp.read(image);
-  //     const newSizeImage = await newImage.resize(250, 250);
-  //     const newNameImage = await newSizeImage.write("nikita.jpeg");
-  //     return newNameImage;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
   const tmpPath = path.resolve(__dirname, "../tmp", filename);
+  Jimp.read(tmpPath)
+    .then((filename) => {
+      return filename.resize(250, 250).write("tetiana.jpeg");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  console.log(filename);
   const publicPath = path.resolve(__dirname, "../public/avatars", filename);
   try {
     await fs.rename(tmpPath, publicPath);
