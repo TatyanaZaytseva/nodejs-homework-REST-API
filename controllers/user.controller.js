@@ -57,18 +57,6 @@ async function uploadAvatar(req, res, next) {
   });
 }
 
-// async function resizeAvatar(image) {
-//   try {
-//     const newImage = await Jimp.read(image);
-//     console.log(newImage);
-//     const newSizeImage = await newImage.resize(250, 250);
-//     const newNameImage = await newSizeImage.write("nikita.jpeg");
-//     return newNameImage;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// }
-
 async function uploadNewAvatar(req, res, next) {
   const { filename } = req.file;
   const tmpPath = path.resolve(__dirname, "../tmp", filename);
