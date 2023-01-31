@@ -42,7 +42,6 @@ async function uploadAvatar(req, res, next) {
   } catch (error) {
     await fs.unlink(tmpPath);
     throw error;
-    throw error;
   }
 
   const userId = req.params.id;
@@ -67,7 +66,6 @@ async function uploadNewAvatar(req, res, next) {
     await fs.rename(tmpPath, publicPath);
   } catch (error) {
     await fs.unlink(tmpPath);
-    throw error;
     throw error;
   }
 

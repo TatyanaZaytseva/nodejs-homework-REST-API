@@ -7,7 +7,7 @@ const gravatar = require("gravatar");
 const { JWT_SECRET } = process.env;
 
 async function register(req, res, next) {
-  const { email, password, subscription = "starter", avatar } = req.body;
+  const { email, password, subscription = "starter" } = req.body;
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -24,7 +24,7 @@ async function register(req, res, next) {
         email,
         id: savedUser._id,
         subscription,
-        avatar,
+        avatar: gravatar.url(email),
       },
     });
   } catch (error) {
