@@ -17,6 +17,7 @@ const schema = mongoose.Schema(
       default: "starter",
     },
     token: String,
+    avatar: String,
     contacts: [
       {
         type: mongoose.Schema.Types.ObjectId,
