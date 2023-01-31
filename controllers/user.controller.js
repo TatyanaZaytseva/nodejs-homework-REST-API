@@ -72,16 +72,10 @@ async function uploadAvatar(req, res, next) {
 async function uploadNewAvatar(req, res, next) {
   const { filename } = req.file;
   const tmpPath = path.resolve(__dirname, "../tmp", filename);
-  Jimp.read(tmpPath)
-    .then((filename) => {
-      return filename.resize(250, 250).write("tetiana.jpeg");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  console.log(filename);
   const publicPath = path.resolve(__dirname, "../public/avatars", filename);
   try {
+    const image = await Jimp.read(tmpPath);
+    image.resize(250, 250).write("Tanya.jpeg");
     await fs.rename(tmpPath, publicPath);
   } catch (error) {
     await fs.unlink(tmpPath);
