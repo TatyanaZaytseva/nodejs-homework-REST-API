@@ -24,6 +24,14 @@ const schema = mongoose.Schema(
         ref: "contacts",
       },
     ],
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
   },
   {
     timestamps: true,
