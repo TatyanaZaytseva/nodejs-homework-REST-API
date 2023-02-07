@@ -1,8 +1,9 @@
 const { User } = require("../models/user");
-const { HttpError } = require("../helpers/index");
+const { HttpError, sendMail } = require("../helpers/index");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
+const { v4 } = require("uuid");
 
 const { JWT_SECRET } = process.env;
 
@@ -12,11 +13,21 @@ async function register(req, res, next) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   try {
+    const verifyToken = v4();
+
     const savedUser = await User.create({
       email,
       password: hashedPassword,
       subscription,
       avatar: gravatar.url(email),
+      verifyToken,
+      verified: false,
+    });
+
+    await sendMail({
+      to: email,
+      subject: "Please confirm your email",
+      html: `<a href="localhost:3000/api/users/verify/${verifyToken}">Confirm your email</a>`,
     });
 
     res.status(201).json({
@@ -44,6 +55,13 @@ async function login(req, res, next) {
 
   if (!storedUser) {
     throw new HttpError(401, "email is not valid");
+  }
+
+  if (!storedUser.verified) {
+    throw new HttpError(
+      401,
+      "email is not verified. Please check your mail box"
+    );
   }
 
   const isPasswordValid = await bcrypt.compare(password, storedUser.password);

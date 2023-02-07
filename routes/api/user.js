@@ -6,6 +6,8 @@ const {
   me,
   uploadAvatar,
   uploadNewAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } = require("../../controllers/user.controller");
 const { auth, upload } = require("../../middlewares/index");
 const userRouter = express.Router();
@@ -32,4 +34,7 @@ userRouter.patch(
   upload.single("avatar"),
   tryCatchWrapper(uploadNewAvatar)
 );
+userRouter.get("/verify/:token", tryCatchWrapper(verifyEmail));
+userRouter.post("/verify", tryCatchWrapper(resendVerifyEmail));
+
 module.exports = userRouter;
